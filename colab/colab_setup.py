@@ -2,13 +2,14 @@
 #   !git clone https://github.com/trailbat/ComfyUI.git /content/ComfyUI
 #   import sys; sys.path.append("/content/ComfyUI/colab")
 #   import colab_setup
-#   colab_setup.setup(CUSTOM_NODES, MODELS_YAML, DOWNLOAD_MODELS, TAILSCALE, GOOGLE_DRIVE, SSH_TUNNEL)
+#   colab_setup.setup(CUSTOM_NODES, MODELS_YAML, DOWNLOAD_MODELS, TAILSCALE, GOOGLE_DRIVE, SSH_TUNNEL, WORKFLOWS)
 #   !python /content/ComfyUI/main.py --enable-manager --listen
 #
-# Reads the GITHUB_TOKEN (for a models.yaml in a private repo), CIVITAI_API_KEY, HUG_TOKEN, TS_AUTHKEY,
+# Reads the GITHUB_TOKEN (for a models.yaml or workflows in a private repo), CIVITAI_API_KEY, HUG_TOKEN, TS_AUTHKEY,
 # TUNNEL_HOST and TUNNEL_KEY Colab secrets.
 
 import os
+import urllib.parse
 import urllib.request
 
 from google.colab import drive, userdata
@@ -19,6 +20,7 @@ import ssh_tunnel
 import tailscale
 
 CATALOG = os.path.join(install.COLAB_DIR, "models.yaml")
+WORKFLOWS_DIR = os.path.join(install.ROOT, "user", "default", "workflows")
 
 
 def secret(name):
@@ -28,13 +30,17 @@ def secret(name):
         return ""
 
 
-def fetch_catalog(url):
+def fetch(url):
     request = urllib.request.Request(url)
     token = secret("GITHUB_TOKEN")
-    if token:
+    if token and urllib.parse.urlparse(url).hostname == "raw.githubusercontent.com":
         request.add_header("Authorization", f"token {token}")
     with urllib.request.urlopen(request) as r:
-        text = r.read().decode("utf-8")
+        return r.read().decode("utf-8")
+
+
+def fetch_catalog(url):
+    text = fetch(url)
     catalog = parse_catalog(text)
     # The Download Models sidebar tab reads its default catalog from colab/models.yaml.
     with open(CATALOG, "w", encoding="utf-8") as f:
@@ -42,7 +48,18 @@ def fetch_catalog(url):
     return catalog
 
 
-def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_drive, ssh_tunnel_enabled=False):
+# Workflows are urls, or paths relative to models_yaml, saved to the Workflows sidebar tab under their file name.
+def fetch_workflows(models_yaml, workflows):
+    os.makedirs(WORKFLOWS_DIR, exist_ok=True)
+    for workflow in workflows:
+        url = urllib.parse.urljoin(models_yaml, workflow)
+        name = urllib.parse.unquote(os.path.basename(urllib.parse.urlparse(url).path))
+        print(f"Saving workflow {name}")
+        with open(os.path.join(WORKFLOWS_DIR, name), "w", encoding="utf-8") as f:
+            f.write(fetch(url))
+
+
+def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_drive, ssh_tunnel_enabled=False, workflows=()):
     # Colab secrets can't be read from the ComfyUI process, so pass them through the environment.
     for name in ["CIVITAI_API_KEY", "HUG_TOKEN", "TS_AUTHKEY", "TUNNEL_HOST", "TUNNEL_KEY"]:
         os.environ[name] = secret(name)
@@ -55,6 +72,7 @@ def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_
     missing = [name for name in download_models if name not in catalog]
     if missing:
         raise ValueError(f"Not in {models_yaml}: {', '.join(missing)}")
+    fetch_workflows(models_yaml, workflows)
 
     install.install_aria2()
     # aria2p is installed by install.install_aria2, so downloader can only be imported after it.
