@@ -52,7 +52,7 @@ def fetch_catalog(url):
 def fetch_workflows(models_yaml, workflows):
     os.makedirs(WORKFLOWS_DIR, exist_ok=True)
     for workflow in workflows:
-        url = urllib.parse.urljoin(models_yaml, workflow)
+        url = urllib.parse.urljoin(models_yaml, urllib.parse.quote(workflow, safe=":/?&=%"))
         name = urllib.parse.unquote(os.path.basename(urllib.parse.urlparse(url).path))
         print(f"Saving workflow {name}")
         with open(os.path.join(WORKFLOWS_DIR, name), "w", encoding="utf-8") as f:
