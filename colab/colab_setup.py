@@ -2,7 +2,7 @@
 #   !git clone https://github.com/trailbat/ComfyUI.git /content/ComfyUI
 #   import sys; sys.path.append("/content/ComfyUI/colab")
 #   import colab_setup
-#   colab_setup.setup(CUSTOM_NODES, MODELS_YAML, DOWNLOAD_MODELS, TAILSCALE, GOOGLE_DRIVE, SSH_TUNNEL, WORKFLOWS)
+#   colab_setup.setup(CUSTOM_NODES, MODELS_YAML, DOWNLOAD_MODELS, TAILSCALE, GOOGLE_DRIVE, SSH_TUNNEL, WORKFLOWS, COPY_DIRS)
 #   !python /content/ComfyUI/main.py --enable-manager --listen
 #
 # Reads the GITHUB_TOKEN (for a models.yaml or workflows in a private repo), CIVITAI_API_KEY, HUG_TOKEN, TS_AUTHKEY,
@@ -59,7 +59,23 @@ def fetch_workflows(models_yaml, workflows):
             f.write(fetch(url))
 
 
-def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_drive, ssh_tunnel_enabled=False, workflows=()):
+# copy_dirs is {folder: directory or [directories]}, every file in a directory is copied to that folder inside
+# ComfyUI's models directory, keeping subfolders. Returns the copies as (source, path).
+def dir_copies(models_dir, copy_dirs):
+    copies = []
+    for folder, directories in copy_dirs.items():
+        for directory in [directories] if isinstance(directories, str) else directories:
+            if not os.path.isdir(directory):
+                raise ValueError(f"Not a directory: {directory}")
+            for parent, _, files in os.walk(directory):
+                for file in files:
+                    source = os.path.join(parent, file)
+                    copies.append((source, os.path.join(models_dir, folder, os.path.relpath(source, directory))))
+    return copies
+
+
+def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_drive, ssh_tunnel_enabled=False, workflows=(),
+          copy_dirs=None):
     # Colab secrets can't be read from the ComfyUI process, so pass them through the environment.
     for name in ["CIVITAI_API_KEY", "HUG_TOKEN", "TS_AUTHKEY", "TUNNEL_HOST", "TUNNEL_KEY"]:
         os.environ[name] = secret(name)
@@ -73,14 +89,15 @@ def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_
     if missing:
         raise ValueError(f"Not in {models_yaml}: {', '.join(missing)}")
     fetch_workflows(models_yaml, workflows)
+    models_dir = os.path.join(install.ROOT, "models")
+    # Skip installed files when the setup cell is run again.
+    copies = [(source, path) for source, path in dir_copies(models_dir, copy_dirs or {}) if not os.path.isfile(path)]
 
     install.install_aria2()
     # aria2p is installed by install.install_aria2, so downloader can only be imported after it.
     from downloader import Downloader
 
-    models_dir = os.path.join(install.ROOT, "models")
     downloader = Downloader(models_dir)
-    copies = []
     for model in (catalog[name] for name in download_models):
         path = os.path.join(models_dir, model["folder"], model["filename"])
         # Skip installed models when the setup cell is run again, aria2 refuses to overwrite a finished download.
