@@ -1,0 +1,22 @@
+# Example for Load Prompt List (YAML). Upload it with the node's upload button.
+# "defaults" is optional and fills in any setting a prompt leaves out. Setting names are free-form,
+# read them with Get Value using the same key (cfg, steps, seed, ...).
+
+defaults:
+  negative: blurry, low quality, watermark
+  cfg: 7
+  steps: 30
+  seed: 0
+  width: 1024
+  height: 1024
+
+prompts:
+  - prompt: A lighthouse on a rocky cliff at dusk, waves crashing below, dramatic clouds.
+    cfg: 5.5
+    steps: 25
+
+  - prompt: A tiny ramen shop at night in a rainy Tokyo alley, neon signs reflected in puddles.
+    seed: 1234
+
+  # A plain string is short for "prompt: ..." and uses every default.
+  - A red fox standing in deep fresh snow in a birch forest, soft morning light.

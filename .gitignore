@@ -7,6 +7,8 @@ __pycache__/
 /temp/
 /custom_nodes/*
 !/custom_nodes/model-manager/
+!/custom_nodes/prompt-picker/
+!/custom_nodes/personal-utils/
 !custom_nodes/example_node.py.example
 extra_model_paths.yaml
 /.vs
