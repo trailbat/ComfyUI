@@ -17,3 +17,25 @@ vae:
 - name: Qwen Image VAE
   url: https://huggingface.co/Comfy-Org/Krea-2/resolve/main/vae/qwen_image_vae.safetensors
   filename: qwen_image_vae.safetensors
+clip_vision:
+- name: CLIP ViT-L/14 (Reference Analyzer)
+  url: https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors
+  filename: clip-vit-large-patch14.safetensors
+ultralytics/pose:
+- name: YOLO11m Pose (Reference Analyzer)
+  url: https://huggingface.co/Ultralytics/YOLO11/resolve/main/yolo11m-pose.pt
+  filename: yolo11m-pose.pt
+ultralytics/bbox:
+- name: Hand YOLOv8s (Reference Analyzer)
+  url: https://huggingface.co/Bingsu/adetailer/resolve/main/hand_yolov8s.pt
+  filename: hand_yolov8s.pt
+insightface/models/buffalo_l:
+- name: InsightFace buffalo_l detection (Reference Analyzer)
+  url: https://huggingface.co/public-data/insightface/resolve/main/models/buffalo_l/det_10g.onnx
+  filename: det_10g.onnx
+- name: InsightFace buffalo_l recognition (Reference Analyzer)
+  url: https://huggingface.co/public-data/insightface/resolve/main/models/buffalo_l/w600k_r50.onnx
+  filename: w600k_r50.onnx
+- name: InsightFace buffalo_l landmarks (Reference Analyzer)
+  url: https://huggingface.co/public-data/insightface/resolve/main/models/buffalo_l/1k3d68.onnx
+  filename: 1k3d68.onnx

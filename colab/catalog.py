@@ -8,6 +8,10 @@
 #   loras:
 #     - name: My LoRA
 #       path: /content/drive/MyDrive/ComfyUI/models/loras/my_lora.safetensors
+# A LoRA with slider: true is listed in the LoRA Sliders node, with its description, the model it is for (e.g. Krea 2)
+# and the min, max and default strength it works at, and optionally its author, the page it is found at and its trigger_words (a string or a list) the node can add to the prompt.
+# A LoRA with style: true is listed in the LoRA Styles node instead, with the same fields and optionally previews, a list
+# of image urls the node shows as photos of what the style looks like.
 # Models are handled as {name: {"name", "folder", "url" or "path", "filename"}}.
 
 import os

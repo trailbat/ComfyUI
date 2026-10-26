@@ -1,0 +1,1294 @@
+# The 48 prompts from OneTrainer/lora_dataset_generation_prompts.txt for Load Prompt List (YAML), with the targets
+# Reference Analyzer ranks photos against. Fix a target by hand when it doesn't match what the prompt asks for.
+#   width/height for local models, aspect for API nodes with an aspect_ratio dropdown (Meta Muse Image Edit).
+#   crop:        eyes | face_detail | ear | hands | hand_face | feet | head_shoulders | medium | cowboy | middle_full | full | wide
+#   angle:       front | three_quarter | profile | rear | any
+#   side:        left | right, the frame direction the face points (optional)
+#   camera:      eye_level | high | low
+#   gaze:        camera | away | down | closed | any
+#   posture:     standing | seated | walking | jumping | any
+#   light:       short description, matched with CLIP
+#   light_side:  left | right | even (checked on the face) or front | back | both | any (not checked)
+#   environment: short description, matched with CLIP
+# T1/T2 (tattoo / mark) are left out, add them once [MARK] is filled in.
+
+prompts:
+- id: '01'
+  title: Extreme close-up - left eye
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: eyes
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: soft diffused window light
+  light_side: left
+  environment: macro close-up of an eye
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    shape, eye color, skin tone, skin texture and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Macro extreme
+    close-up of the person's left eye filling the frame, including the eyebrow and the upper cheek, looking straight into
+    the lens. Bare skin with no makeup. Soft diffused window light from the left, with a crisp catchlight in the iris. Razor-sharp
+    focus on the iris and lashes, natural pore-level skin texture, 100mm macro lens. Only this one person, no text, no watermark,
+    no white face patches.
+  caption: >-
+    Extreme close-up of TRIGGER's left eye and eyebrow, looking directly at the camera. Soft diffused window light from the
+    left.
+- id: '02'
+  title: Extreme close-up - right eye
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: eyes
+  angle: front
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: warm golden-hour sunlight
+  light_side: right
+  environment: macro close-up of an eye
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    shape, eye color, skin tone, skin texture and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Macro extreme
+    close-up of the person's right eye and the bridge of the nose, gaze directed slightly off to the side. Bare skin with
+    no makeup. Warm golden-hour sunlight from the right, lighting up the iris. Razor-sharp focus, natural skin texture, 100mm
+    macro lens. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Extreme close-up of TRIGGER's right eye and the bridge of the nose, gaze directed to the side. Warm golden-hour sunlight
+    from the right.
+- id: '03'
+  title: Extreme close-up - both eyes
+  width: 1376
+  height: 768
+  aspect: '16:9'
+  crop: eyes
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: flat even soft studio light
+  light_side: even
+  environment: close-up of eyes
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    shape, eye color, skin tone, skin texture and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Tight horizontal
+    crop of both eyes and the eyebrows, from the forehead down to the top of the nose, looking directly at the camera with
+    a calm expression. Bare skin with no makeup. Even, flat, soft studio light. Very sharp, high-detail skin and lashes. Only
+    this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Extreme close-up of TRIGGER's eyes and eyebrows, looking directly at the camera, calm expression. Flat, even studio light.
+- id: '04'
+  title: Close-up - mouth, nose and skin detail
+  width: 1184
+  height: 896
+  aspect: '4:3'
+  crop: face_detail
+  angle: front
+  camera: eye_level
+  gaze: any
+  posture: any
+  light: bright natural daylight
+  light_side: left
+  environment: close-up of a face
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, lips,
+    nose, skin tone, skin texture and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up of the lower half
+    of the face, from just below the eyes to the chin, with a slight closed-mouth smile. Bare skin and natural lips. Bright
+    natural daylight from the front-left, showing only the freckles and moles that are clearly and consistently visible across
+    the reference photos. Very sharp, pore-level detail. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Extreme close-up of TRIGGER's nose, lips and chin with a slight closed-mouth smile. Bright natural daylight from the front-left.
+- id: '05'
+  title: Close-up - side of face and ear
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: ear
+  angle: profile
+  side: left
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: soft overcast daylight
+  light_side: even
+  environment: outdoors on an overcast day
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, ear
+    shape, jawline, skin tone, skin texture and natural hair color. Reproduce a freckle, mole or other skin mark only if it
+    is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up of the
+    left side of the face in profile, showing the ear, jawline, cheekbone and hairline, with hair tucked behind the ear. No
+    earrings. Soft overcast outdoor light. Very sharp detail. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Extreme close-up of TRIGGER's left ear, jawline and cheek seen in profile, [HAIR COLOR] hair tucked behind the ear. Soft
+    overcast daylight.
+- id: '06'
+  title: Extreme close-up - hands
+  width: 1184
+  height: 896
+  aspect: '4:3'
+  crop: hands
+  angle: any
+  camera: high
+  gaze: any
+  posture: any
+  light: soft window light
+  light_side: left
+  environment: hands resting on a wooden table
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact skin tone, skin texture
+    and body proportions. Reproduce a freckle, mole or other skin mark only if it is clearly visible in the same place in
+    several of the reference photos. Do not add marks that are faint, appear in only one photo, or could be blur, noise or
+    compression artifacts; render that skin as clear, natural skin. Close-up of the person's two hands resting together on
+    a light oak wooden table, fingers relaxed and slightly spread, showing all ten fingers and the natural nails clearly.
+    The cuffs of a grey knit sweater are visible at the wrists. Soft window light from above-left. Anatomically correct hands
+    with exactly five fingers each, sharp detail. Only this one person, no text, no watermark.
+  caption: >-
+    Extreme close-up of TRIGGER's hands resting on a light wooden table, fingers relaxed, natural unpainted nails, grey knit
+    sweater cuffs. Soft window light from above-left.
+- id: '07'
+  title: Close-up - hand near face
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: hand_face
+  angle: front
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: warm indoor lamp light with soft shadows
+  light_side: right
+  environment: indoors in the evening
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly visible in the same place
+    in several of the reference photos. Do not add marks that are faint, appear in only one photo, or could be blur, noise
+    or compression artifacts; render that skin as clear, natural skin. Close-up of the person's hand raised to the face, fingertips
+    lightly touching the jaw, palm toward the camera, with a thoughtful expression. Nails painted deep red. Warm indoor lamp
+    light from the right with soft shadows. Anatomically correct hand with five fingers, sharp detail. Only this one person,
+    no text, no watermark, no white face patches.
+  caption: >-
+    Close-up of TRIGGER's face and right hand, fingertips touching the jaw, thoughtful expression, deep red nail polish. Warm
+    lamp light from the right with soft shadows.
+- id: 08
+  title: Extreme close-up - feet
+  width: 1184
+  height: 896
+  aspect: '4:3'
+  crop: feet
+  angle: any
+  camera: high
+  gaze: any
+  posture: standing
+  light: bright midday sunlight
+  light_side: even
+  environment: a sandy beach
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact skin tone and body proportions.
+    Reproduce a freckle, mole or other skin mark only if it is clearly visible in the same place in several of the reference
+    photos. Do not add marks that are faint, appear in only one photo, or could be blur, noise or compression artifacts; render
+    that skin as clear, natural skin. Close-up of the person's bare feet standing on warm sand, toes visible, toenails painted
+    pale pink, ankles and lower shins in frame. Bright midday sunlight. Anatomically correct feet with five toes each, sharp
+    detail. Only this one person, no text, no watermark.
+  caption: >-
+    Extreme close-up of TRIGGER's bare feet standing on sand, pale pink toenail polish. Bright midday sunlight.
+- id: 09
+  title: Portrait - front, eye level
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: soft diffused daylight
+  light_side: even
+  environment: a green park
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone, body type and natural hair color. Reproduce a freckle, mole or other skin mark only if it
+    is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders
+    portrait, facing the camera straight on at eye level, neutral relaxed expression, hair worn down naturally. Wearing a
+    plain white crew-neck t-shirt. Soft diffused north-facing window light. Background: a blurred green park. 85mm lens, shallow
+    depth of field, tack-sharp eyes, natural skin texture. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Portrait of TRIGGER seen from the front at eye level with [HAIR COLOR] hair worn down, wearing a white crew-neck t-shirt.
+    Neutral relaxed expression. Soft diffused daylight, blurred green park in the background.
+- id: '10'
+  title: Portrait - front, big smile
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: head_shoulders
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: bright afternoon sun from behind with rim light
+  light_side: back
+  environment: a city street
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, teeth, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is
+    clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up portrait
+    facing the camera, laughing with a wide open smile showing teeth, eyes slightly squinted with joy. Hair in a loose low
+    ponytail. Wearing a navy blue denim jacket. Bright afternoon sun from behind giving a rim light, with fill on the face.
+    Background: a blurred city street. Sharp focus, natural skin texture. Only this one person, no text, no watermark, no
+    white face patches.
+  caption: >-
+    Close-up portrait of TRIGGER seen from the front, laughing with a wide smile showing teeth. [HAIR COLOR] hair in a loose
+    low ponytail, wearing a navy denim jacket. Afternoon sunlight from behind with rim light, blurred city street in the background.
+- id: '11'
+  title: Portrait - three-quarter left
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: three_quarter
+  side: left
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: single softbox studio light
+  light_side: left
+  environment: a plain grey studio backdrop
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, nose profile, jawline, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark
+    only if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders
+    portrait with the head turned to a three-quarter view toward the camera's left, eyes looking at the camera, slight smile.
+    Hair tucked behind one ear. Wearing a burgundy ribbed turtleneck. Rembrandt lighting: a single softbox high on the left
+    with a soft shadow triangle on the cheek. Plain mid-grey studio backdrop. Sharp, high detail. Only this one person, no
+    text, no watermark, no white face patches.
+  caption: >-
+    Portrait of TRIGGER seen from a three-quarter left angle at eye level, looking at the camera with a slight smile. [HAIR
+    COLOR] hair tucked behind one ear, wearing a burgundy ribbed turtleneck. Single softbox light from high left, mid-grey
+    studio backdrop.
+- id: '12'
+  title: Portrait - three-quarter right
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: three_quarter
+  side: right
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: warm late-afternoon window light
+  light_side: any
+  environment: a cafe interior
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, nose profile, jawline, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark
+    only if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders
+    portrait with the head turned to a three-quarter view toward the camera's right, looking off into the distance, calm and
+    contemplative expression. Hair in a messy bun. Wearing a mustard-yellow knit cardigan. Warm late-afternoon light through
+    a cafe window. Background: a blurred cafe interior. Sharp focus on the eyes. Only this one person, no text, no watermark,
+    no white face patches.
+  caption: >-
+    Portrait of TRIGGER seen from a three-quarter right angle, looking into the distance with a calm, contemplative expression.
+    [HAIR COLOR] hair in a messy bun, wearing a mustard-yellow knit cardigan. Warm late-afternoon window light, blurred cafe
+    interior in the background.
+- id: '13'
+  title: Close-up - left profile
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: profile
+  side: left
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: soft side light
+  light_side: any
+  environment: a plain beige backdrop
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, profile
+    silhouette, nose, lips, chin, jawline, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark
+    only if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up
+    of the left side profile at eye level, facing exactly sideways toward the left edge of the frame, neutral expression.
+    Hair pulled back in a sleek low bun. Wearing a black silk camisole with thin straps. Soft side light from the front of
+    the face. Plain warm-beige backdrop. Sharp, clean profile outline. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Close-up of TRIGGER seen in left profile at eye level, neutral expression. [HAIR COLOR] hair pulled back in a sleek low
+    bun, wearing a black silk camisole. Soft side light, plain beige backdrop.
+- id: '14'
+  title: Close-up - right profile
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: profile
+  side: right
+  camera: eye_level
+  gaze: closed
+  posture: any
+  light: golden-hour sunlight
+  light_side: any
+  environment: an ocean horizon
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, profile
+    silhouette, nose, lips, chin, jawline, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark
+    only if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up
+    of the right side profile, facing toward the right edge of the frame, eyes closed, peaceful expression, chin slightly
+    raised. Hair worn down and blown back by a light breeze. Wearing a light blue linen shirt. Golden-hour sunlight on the
+    face from the front. Background: a blurred ocean horizon. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Close-up of TRIGGER seen in right profile, eyes closed, chin slightly raised, peaceful expression. [HAIR COLOR] hair worn
+    down and blown back by the wind, wearing a light blue linen shirt. Golden-hour sunlight, blurred ocean horizon in the
+    background.
+- id: '15'
+  title: Portrait - three-quarter rear left (looking over shoulder)
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: profile
+  side: left
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: overcast diffused daylight
+  light_side: even
+  environment: a brick wall
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, ear, jawline, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Portrait from behind and to
+    the left: the back of the head and the left shoulder face the camera, and the head is turned to glance back over the left
+    shoulder, showing the cheek, jawline and partial profile, with a soft smile. Hair in a high ponytail. Wearing an olive-green
+    bomber jacket. Overcast diffused daylight. Background: a blurred brick wall. Only this one person, no text, no watermark,
+    no white face patches.
+  caption: >-
+    Portrait of TRIGGER seen from a three-quarter rear left angle, glancing back over the left shoulder with a soft smile.
+    [HAIR COLOR] hair in a high ponytail, wearing an olive-green bomber jacket. Overcast daylight, blurred brick wall in the
+    background.
+- id: '16'
+  title: Portrait - three-quarter rear right
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: rear
+  side: right
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: cool blue-hour light with string lights
+  light_side: any
+  environment: outdoors at dusk with string lights
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, jawline,
+    ear, skin tone, neck and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly visible
+    in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo, or could
+    be blur, noise or compression artifacts; render that skin as clear, natural skin. Portrait from behind and to the right:
+    the back of the head and right shoulder face the camera, and the face is turned away toward the right showing only the
+    edge of the cheek, the jawline and the right ear. Hair braided in a single loose braid. Wearing a cream wool coat. Cool
+    blue-hour light with warm string lights blurred in the background. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Portrait of TRIGGER seen from a three-quarter rear right angle, face turned away showing the jawline and right ear. [HAIR
+    COLOR] hair in a single loose braid, wearing a cream wool coat. Cool blue-hour light, blurred warm string lights in the
+    background.
+- id: '17'
+  title: Portrait - rear view of the head
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: rear
+  camera: eye_level
+  gaze: any
+  posture: any
+  light: soft natural daylight
+  light_side: even
+  environment: a mountain lake
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact head shape, neck, shoulders,
+    skin tone and natural hair color and texture. Reproduce a freckle, mole or other skin mark only if it is clearly visible
+    in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo, or could
+    be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders view from directly
+    behind, back of the head facing the camera, hair worn down naturally showing its full length and texture. Wearing a white
+    tank top showing the shoulders and upper back. Soft natural daylight. Background: a blurred mountain lake. Only this one
+    person, no text, no watermark.
+  caption: >-
+    Portrait of TRIGGER seen from directly behind at eye level, [HAIR COLOR] hair worn down, wearing a white tank top. Soft
+    natural daylight, blurred mountain lake in the background.
+- id: '18'
+  title: Close-up - high angle, looking up
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: head_shoulders
+  angle: front
+  camera: high
+  gaze: camera
+  posture: any
+  light: flat overcast light
+  light_side: even
+  environment: grey paving stones
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up shot from well above,
+    camera pointing down at the face, which tilts up to look into the lens with a gentle, curious expression. Hair spread
+    out loosely. Wearing a dark green hoodie. Bright, flat overcast light. Background: grey paving stones on the ground. Sharp
+    focus on the eyes. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Close-up of TRIGGER seen from a high angle above, looking up at the camera with a gentle, curious expression. Loose [HAIR
+    COLOR] hair, wearing a dark green hoodie. Flat overcast light, grey paving stones in the background.
+- id: '19'
+  title: Close-up - low angle, looking down
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: head_shoulders
+  angle: front
+  camera: low
+  gaze: camera
+  posture: any
+  light: bright daylight
+  light_side: any
+  environment: a blue sky with clouds
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, jawline, chin, nostrils, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark
+    only if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up
+    shot from a low angle below the chin, camera pointing up at the face, which looks down at the camera with a confident,
+    slightly amused expression. Hair worn down. Wearing a red flannel shirt. Background: a bright blue sky with scattered
+    clouds and the sun just out of frame giving natural fill. Sharp focus. Only this one person, no text, no watermark, no
+    white face patches.
+  caption: >-
+    Close-up of TRIGGER seen from a low angle below, looking down at the camera with a confident, slightly amused expression.
+    [HAIR COLOR] hair worn down, wearing a red flannel shirt. Bright daylight, blue sky with clouds in the background.
+- id: '20'
+  title: Portrait - neon night
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: head_shoulders
+  angle: three_quarter
+  side: left
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: magenta and cyan neon light at night
+  light_side: both
+  environment: a rainy city street at night
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, true skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders portrait,
+    three-quarter left angle, serious and focused expression. Hair slicked back. Wearing a black leather jacket over a black
+    t-shirt. At night, with magenta neon light from the left and cyan neon light from the right falling on the face. Background:
+    a blurred rainy city street with bokeh. Sharp focus on the eyes. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Portrait of TRIGGER seen from a three-quarter left angle with a serious, focused expression. [HAIR COLOR] hair slicked
+    back, wearing a black leather jacket over a black t-shirt. Magenta neon light from the left and cyan neon light from the
+    right at night, blurred rainy city street in the background.
+- id: '21'
+  title: Close-up - dramatic hard light
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: head_shoulders
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: hard sunlight through window blinds with striped shadows
+  light_side: any
+  environment: a dark interior
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Close-up of the face from the
+    front, slightly off-center, intense direct gaze, neutral mouth. Hard direct sunlight through window blinds casting striped
+    shadows across the face. Hair pushed behind both ears. Wearing a white button-up shirt, collar visible. Background: a
+    dark interior wall. Sharp, high contrast. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Close-up of TRIGGER seen from the front, intense direct gaze, neutral expression. [HAIR COLOR] hair pushed behind both
+    ears, wearing a white button-up shirt. Hard sunlight through blinds casting striped shadows across the face, dark interior
+    wall in the background.
+- id: '22'
+  title: Portrait - candlelight, makeup
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: three_quarter
+  side: right
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: warm candlelight
+  light_side: any
+  environment: a dark restaurant
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders portrait,
+    three-quarter right angle, soft warm smile. Evening makeup: winged black eyeliner and red lipstick. Hair in loose curls.
+    Wearing an emerald-green satin dress with thin straps and small gold hoop earrings. Low warm candlelight from below and
+    to the side. Background: a dark blurred restaurant. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Portrait of TRIGGER seen from a three-quarter right angle with a soft warm smile, wearing black winged eyeliner, red lipstick
+    and small gold hoop earrings. [HAIR COLOR] hair in loose curls, wearing an emerald-green satin dress. Warm candlelight
+    from below, dark blurred restaurant in the background.
+- id: '23'
+  title: Portrait - glasses and hat
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: head_shoulders
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: any
+  light: cold winter daylight with falling snow
+  light_side: even
+  environment: a snowy pine forest
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders portrait
+    facing the camera, slight head tilt, playful smirk. Wearing round tortoiseshell eyeglasses with clear lenses, a grey beanie
+    hat with hair falling out underneath, and a charcoal puffer jacket. Cold blue winter daylight with snow falling. Background:
+    blurred snowy pine trees. Eyes clearly visible through the lenses. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Portrait of TRIGGER seen from the front with a slight head tilt and a playful smirk, wearing round tortoiseshell glasses,
+    a grey beanie and a charcoal puffer jacket, [HAIR COLOR] hair under the hat. Cold winter daylight with falling snow, blurred
+    snowy pine trees in the background.
+- id: '24'
+  title: Close-up - off-center tele shot
+  width: 1376
+  height: 768
+  aspect: '16:9'
+  crop: head_shoulders
+  angle: three_quarter
+  side: left
+  camera: eye_level
+  gaze: away
+  posture: any
+  light: soft sunset backlight
+  light_side: back
+  environment: a wildflower field
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Landscape-format close-up taken
+    with a 200mm telephoto lens. The face sits on the right third of the frame in three-quarter left view, looking toward
+    the empty space on the left with a wistful expression. Hair in two low pigtails. Wearing a lavender hoodie. Soft backlight
+    from the setting sun. Background: heavily blurred wildflower field in creamy bokeh. Only this one person, no text, no
+    watermark, no white face patches.
+  caption: >-
+    Close-up of TRIGGER positioned on the right third of the frame, seen from a three-quarter left angle, looking into the
+    distance with a wistful expression. [HAIR COLOR] hair in two low pigtails, wearing a lavender hoodie. Soft sunset backlight,
+    blurred wildflower field in the background.
+- id: '25'
+  title: Portrait - wet hair, poolside
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: head_shoulders
+  angle: front
+  camera: high
+  gaze: camera
+  posture: any
+  light: bright direct summer sunlight
+  light_side: any
+  environment: a swimming pool
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, face
+    shape, eye color, skin tone and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Head-and-shoulders portrait
+    from slightly above, looking up at the camera, relaxed smile, water droplets on the skin. Hair wet and slicked back. Black
+    swimsuit straps visible on the shoulders. Bright direct summer sunlight. Background: turquoise pool water. Sharp skin
+    detail. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Portrait of TRIGGER seen from slightly above, looking up at the camera with a relaxed smile, wet skin. Wet [HAIR COLOR]
+    hair slicked back, black swimsuit straps on the shoulders. Bright direct sunlight, turquoise pool water in the background.
+- id: '26'
+  title: Medium shot - front, kitchen
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: medium
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: bright window daylight
+  light_side: any
+  environment: a modern kitchen
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Medium shot
+    from head to waist, facing the camera at eye level, chopping vegetables on a cutting board, glancing up with a warm smile.
+    Hair in a high bun. Wearing a striped blue-and-white Breton top with the sleeves pushed up. Bright natural daylight from
+    a kitchen window. Background: a modern kitchen. Sharp focus on the face. Only this one person, no text, no watermark,
+    no white face patches.
+  caption: >-
+    Medium shot of TRIGGER seen from the front at eye level, chopping vegetables on a cutting board and glancing up with a
+    warm smile. [HAIR COLOR] hair in a high bun, wearing a blue-and-white striped top. Bright window daylight, modern kitchen
+    in the background.
+- id: '27'
+  title: Medium shot - three-quarter right, office
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: medium
+  angle: three_quarter
+  side: right
+  camera: eye_level
+  gaze: away
+  posture: seated
+  light: cool office lighting
+  light_side: any
+  environment: an office
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Medium shot
+    from head to waist, three-quarter right view, seated at a desk typing on a laptop, looking at the screen with a focused
+    expression. Hair worn down, parted on the side. Wearing a light grey blazer over a black top. Cool fluorescent office
+    light mixed with daylight. Background: an open-plan office, softly blurred. Only this one person, no text, no watermark,
+    no white face patches.
+  caption: >-
+    Medium shot of TRIGGER seen from a three-quarter right angle, seated at a desk typing on a laptop, focused expression.
+    [HAIR COLOR] hair worn down with a side part, wearing a light grey blazer over a black top. Cool office lighting, blurred
+    open-plan office in the background.
+- id: '28'
+  title: Medium shot - left profile, reading
+  width: 1376
+  height: 768
+  aspect: '16:9'
+  crop: medium
+  angle: profile
+  side: left
+  camera: eye_level
+  gaze: down
+  posture: seated
+  light: warm reading-lamp light
+  light_side: back
+  environment: a living room with bookshelves
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, profile,
+    skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Landscape medium shot in left
+    profile, seated in an armchair reading a paperback book held in both hands, calm absorbed expression. Hair in a loose
+    side braid. Wearing an oversized cream cable-knit sweater. Warm reading-lamp light from behind the chair. Background:
+    a cosy living room with bookshelves. The subject sits on the left third of the frame. Only this one person, no text, no
+    watermark, no white face patches.
+  caption: >-
+    Medium shot of TRIGGER seen in left profile, positioned on the left third of the frame, seated in an armchair reading
+    a book held in both hands, calm absorbed expression. [HAIR COLOR] hair in a loose side braid, wearing an oversized cream
+    cable-knit sweater. Warm lamp light, living room with bookshelves in the background.
+- id: '29'
+  title: Cowboy shot - front, low angle, street
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: cowboy
+  angle: front
+  camera: low
+  gaze: camera
+  posture: walking
+  light: bright overcast daylight
+  light_side: even
+  environment: a city sidewalk with shops
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Cowboy shot
+    from head to mid-thigh, slightly low camera angle, facing the camera, walking toward the lens mid-stride, confident expression.
+    Hair blowing slightly. Wearing a camel trench coat, open, over a white t-shirt and blue jeans, with a black crossbody
+    bag. Bright overcast daylight. Background: a European city sidewalk with shopfronts. Only this one person in focus, no
+    text, no watermark, no white face patches.
+  caption: >-
+    Cowboy shot of TRIGGER seen from the front at a slightly low angle, walking toward the camera with a confident expression.
+    [HAIR COLOR] hair moving in the wind, wearing an open camel trench coat over a white t-shirt and blue jeans, black crossbody
+    bag. Overcast daylight, city sidewalk with shopfronts in the background.
+- id: '30'
+  title: Cowboy shot - three-quarter left, gym
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: cowboy
+  angle: three_quarter
+  side: left
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: cool overhead gym lighting
+  light_side: any
+  environment: a gym
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Cowboy shot
+    from head to mid-thigh, three-quarter left view, standing and holding a water bottle in one hand, a towel over the shoulder,
+    slightly out of breath with a satisfied smile. Hair in a tight ponytail. Wearing a black sports bra and charcoal leggings.
+    Cool overhead gym lighting. Background: a gym with weight racks. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Cowboy shot of TRIGGER seen from a three-quarter left angle, standing and holding a water bottle with a towel over one
+    shoulder, satisfied smile. [HAIR COLOR] hair in a tight ponytail, wearing a black sports bra and charcoal leggings. Cool
+    overhead gym lighting, weight racks in the background.
+- id: '31'
+  title: Medium shot - high angle, seated on floor
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: medium
+  angle: front
+  camera: high
+  gaze: camera
+  posture: seated
+  light: soft early-morning window light
+  light_side: any
+  environment: a bedroom
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Medium shot
+    from a high angle, seated cross-legged on a rug holding a mug of tea in both hands, looking up at the camera with a sleepy
+    smile. Hair in a messy topknot. Wearing light pink pyjamas. Soft early-morning light from a window. Background: a bedroom
+    floor with a rug. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Medium shot of TRIGGER seen from a high angle, seated cross-legged on a rug holding a mug in both hands, looking up with
+    a sleepy smile. [HAIR COLOR] hair in a messy topknot, wearing light pink pyjamas. Soft early-morning window light, bedroom
+    rug in the background.
+- id: '32'
+  title: Medium shot - rear three-quarter left, viewpoint
+  width: 928
+  height: 1152
+  aspect: '4:5'
+  crop: medium
+  angle: rear
+  side: left
+  camera: eye_level
+  gaze: away
+  posture: standing
+  light: golden-hour side light
+  light_side: any
+  environment: a mountain valley
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, proportions, shoulders and natural hair color. Reproduce a freckle, mole or other skin mark only if it
+    is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Medium shot from
+    behind and to the left, the person leaning both forearms on a stone railing and looking out over a valley, face partly
+    visible in lost profile. Hair worn down. Wearing a rust-orange fleece jacket and a small black backpack. Golden-hour side
+    light. Background: a mountain valley. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Medium shot of TRIGGER seen from a three-quarter rear left angle, leaning both forearms on a stone railing looking out
+    over a valley. [HAIR COLOR] hair worn down, wearing a rust-orange fleece jacket and a small black backpack. Golden-hour
+    side light, mountain valley in the background.
+- id: '33'
+  title: Middle-full shot - front, doorway
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: middle_full
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: soft shaded daylight
+  light_side: even
+  environment: the front door of a house
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark
+    only if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Middle-full
+    shot from head to just below the knees, standing in an open front doorway at eye level, one hand on the door frame, welcoming
+    smile. The door frame is fully visible to show real height. Hair in a half-up half-down style. Wearing a sage-green midi
+    sundress and a thin brown belt. Soft shaded daylight. Background: a house entrance with a white painted door. Only this
+    one person, no text, no watermark, no white face patches.
+  caption: >-
+    Middle-full shot of TRIGGER seen from the front at eye level, standing in a doorway with one hand on the door frame, welcoming
+    smile. [HAIR COLOR] hair half-up half-down, wearing a sage-green midi sundress with a thin brown belt. Soft shaded daylight,
+    white front door in the background.
+- id: '34'
+  title: Middle-full shot - right profile, bus stop
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: middle_full
+  angle: profile
+  side: right
+  camera: eye_level
+  gaze: away
+  posture: standing
+  light: grey rainy daylight
+  light_side: even
+  environment: a bus stop in the rain
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, profile,
+    skin tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Middle-full
+    shot from head to below the knees in right profile, standing and holding a black umbrella over the shoulder, looking ahead
+    with a neutral expression. Hair worn down, slightly damp. Wearing a yellow raincoat and dark jeans. Grey rainy daylight,
+    wet reflections. Background: a city bus stop shelter in the rain. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Middle-full shot of TRIGGER seen in right profile, standing and holding a black umbrella, neutral expression. Slightly
+    damp [HAIR COLOR] hair worn down, wearing a yellow raincoat and dark jeans. Grey rainy daylight, bus stop shelter in the
+    rain in the background.
+- id: '35'
+  title: Medium shot - three-quarter left, mirror selfie
+  width: 768
+  height: 1376
+  aspect: '9:16'
+  crop: medium
+  angle: three_quarter
+  side: left
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: warm bathroom vanity lights
+  light_side: any
+  environment: a bathroom mirror
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Vertical medium
+    shot from head to hips, three-quarter left angle, holding a phone up in one hand and taking a mirror selfie, playful pout.
+    The face is clearly visible beside the phone. Hair straightened and worn down. Wearing a black-and-white houndstooth blazer
+    and a white top. Warm bathroom vanity lights. Background: a clean bathroom. Sharp, no motion blur. Only this one person,
+    no text, no watermark, no white face patches.
+  caption: >-
+    Medium shot of TRIGGER seen from a three-quarter left angle, taking a mirror selfie with a phone held in one hand, playful
+    pout. Straight [HAIR COLOR] hair worn down, wearing a black-and-white houndstooth blazer over a white top. Warm vanity
+    lighting, bathroom in the background.
+- id: '36'
+  title: Cowboy shot - front, night market
+  width: 1248
+  height: 832
+  aspect: '3:2'
+  crop: cowboy
+  angle: front
+  camera: eye_level
+  gaze: away
+  posture: standing
+  light: warm orange lantern light at night
+  light_side: any
+  environment: a night market
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, eye
+    color, true skin tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only
+    if it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear
+    in only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Landscape
+    cowboy shot, facing the camera, positioned on the left third of the frame, holding a paper cone of street food and laughing.
+    Hair in a low bun with loose strands. Wearing a white oversized shirt and black wide-leg trousers. Warm orange tungsten
+    lanterns overhead at night. Background: a busy night market with blurred stalls, no other faces in focus. Only this one
+    person in focus, no text, no watermark, no white face patches.
+  caption: >-
+    Cowboy shot of TRIGGER seen from the front, positioned on the left third of the frame, holding street food and laughing.
+    [HAIR COLOR] hair in a low bun with loose strands, wearing a white oversized shirt and black wide-leg trousers. Warm orange
+    lantern light at night, blurred night market in the background.
+- id: '37'
+  title: Full body - front, eye level, neutral
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: full
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: soft even daylight
+  light_side: even
+  environment: a concrete wall
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is
+    clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot from
+    head to toes, facing the camera at eye level, standing straight with weight on both feet and arms relaxed at the sides,
+    neutral expression. Hair worn down. Wearing a fitted black t-shirt, light blue straight-leg jeans and white sneakers.
+    Soft even daylight. Background: a plain light concrete wall with a sidewalk. Entire body in frame, with feet visible.
+    Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen from the front at eye level, standing straight with arms relaxed at the sides, neutral
+    expression. [HAIR COLOR] hair worn down, wearing a fitted black t-shirt, light blue jeans and white sneakers. Soft even
+    daylight, light concrete wall in the background.
+- id: '38'
+  title: Full body - left profile, walking
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: full
+  angle: profile
+  side: left
+  camera: eye_level
+  gaze: away
+  posture: walking
+  light: early-morning sunlight with long shadows
+  light_side: any
+  environment: a riverside path
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, profile,
+    skin tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot
+    in left profile, walking mid-stride toward the left side of the frame, arms swinging naturally, relaxed expression. Hair
+    in a high ponytail swinging with the motion. Wearing a navy tracksuit and white running shoes. Early-morning sunlight
+    with long shadows. Background: a riverside path. Entire body in frame. Only this one person, no text, no watermark, no
+    white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen in left profile, walking mid-stride with arms swinging, relaxed expression. [HAIR COLOR]
+    hair in a high ponytail, wearing a navy tracksuit and white running shoes. Early-morning sunlight with long shadows, riverside
+    path in the background.
+- id: '39'
+  title: Full body - three-quarter right, next to car
+  width: 1248
+  height: 832
+  aspect: '3:2'
+  crop: full
+  angle: three_quarter
+  side: right
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: bright midday sun with hard shadows
+  light_side: any
+  environment: a suburban driveway
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is
+    clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Landscape full body
+    shot, three-quarter right view, standing beside a silver sedan car and leaning one hip against the driver's door, one
+    hand holding car keys, relaxed smile. The whole car side is visible to show relative height. Hair worn down. Wearing a
+    white linen button-up shirt, tan chino shorts and brown leather sandals. Bright midday sun with hard shadows. Background:
+    a suburban driveway. Entire body in frame. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen from a three-quarter right angle, leaning a hip against the door of a silver sedan and
+    holding car keys, relaxed smile. [HAIR COLOR] hair worn down, wearing a white linen shirt, tan chino shorts and brown
+    sandals. Bright midday sun with hard shadows, suburban driveway in the background.
+- id: '40'
+  title: Full body - rear view
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: full
+  angle: rear
+  camera: eye_level
+  gaze: any
+  posture: standing
+  light: cool even museum lighting
+  light_side: even
+  environment: an art gallery
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact body type, height, proportions,
+    skin tone and natural hair color and length. Reproduce a freckle, mole or other skin mark only if it is clearly visible
+    in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo, or could
+    be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot from directly behind
+    at eye level, standing still with weight on one leg and looking at a large painting on a gallery wall. Hair worn down.
+    Wearing a long black slip skirt, a fitted white knit top and black ankle boots. Even, cool museum lighting. Background:
+    a white-walled art gallery. Entire body in frame. Only this one person, no text, no watermark.
+  caption: >-
+    Full body shot of TRIGGER seen from directly behind, standing with weight on one leg and looking at a painting. [HAIR
+    COLOR] hair worn down, wearing a long black slip skirt, a fitted white knit top and black ankle boots. Cool even gallery
+    lighting, white-walled art gallery in the background.
+- id: '41'
+  title: Full body - three-quarter rear right, stairs
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: full
+  angle: profile
+  side: right
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: warm late-afternoon sunlight
+  light_side: any
+  environment: an old stone staircase
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is
+    clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot from
+    behind and to the right, climbing a stone staircase, one foot on the step above, head turned back over the right shoulder
+    looking at the camera with a smile. Hair in a braided crown. Wearing a flowing red floral maxi dress and white canvas
+    sneakers. Warm late-afternoon sunlight. Background: an old town staircase with stone walls. Entire body in frame. Only
+    this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen from a three-quarter rear right angle, climbing stone stairs and looking back over the
+    right shoulder with a smile. [HAIR COLOR] hair in a braided crown, wearing a red floral maxi dress and white canvas sneakers.
+    Warm late-afternoon sunlight, old stone staircase in the background.
+- id: '42'
+  title: Full body - seated, high angle
+  width: 1024
+  height: 1024
+  aspect: '1:1'
+  crop: full
+  angle: front
+  camera: high
+  gaze: camera
+  posture: seated
+  light: dappled sunlight through trees
+  light_side: any
+  environment: a park bench in autumn
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot from a high
+    angle, seated on a park bench with legs crossed at the knee, one arm resting along the back of the bench, looking up at
+    the camera with a calm smile. Hair worn down. Wearing a chocolate-brown corduroy jacket, cream trousers and brown loafers.
+    Dappled sunlight through tree leaves. Background: a park path with fallen autumn leaves. Entire body in frame. Only this
+    one person, no text, no watermark, no white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen from a high angle, seated on a park bench with legs crossed at the knee and one arm along
+    the bench back, looking up with a calm smile. [HAIR COLOR] hair worn down, wearing a brown corduroy jacket, cream trousers
+    and brown loafers. Dappled sunlight through trees, autumn park path in the background.
+- id: '43'
+  title: Full body - low angle, dynamic pose
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: full
+  angle: front
+  camera: low
+  gaze: camera
+  posture: jumping
+  light: bright clear sunshine
+  light_side: any
+  environment: a sand dune under a blue sky
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is
+    clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot from
+    a low camera angle near the ground, the person jumping in the air with both knees bent and arms raised overhead, joyful
+    open-mouth smile. Hair flying. Wearing a white sleeveless top, denim shorts and white sneakers. Bright clear sunshine.
+    Background: a deep blue sky over a sand dune. Entire body in frame, sharp with no motion blur. Only this one person, no
+    text, no watermark, no white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen from a low angle, jumping in the air with knees bent and arms raised overhead, joyful open-mouth
+    smile. [HAIR COLOR] hair in motion, wearing a white sleeveless top, denim shorts and white sneakers. Bright clear sunshine,
+    blue sky over a sand dune in the background.
+- id: '44'
+  title: Full body - front, kitchen counter (height reference)
+  width: 896
+  height: 1184
+  aspect: '3:4'
+  crop: full
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: warm indoor pendant lamp light
+  light_side: any
+  environment: a home kitchen
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is
+    clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only
+    one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot from
+    the front at eye level, standing next to a standard-height kitchen counter with one hand resting on the countertop, the
+    other holding a glass of water, friendly expression. The counter edge and the floor are clearly visible to show real height.
+    Hair in a claw clip. Wearing a heather-grey sweatshirt, black joggers and white socks. Warm indoor evening light from
+    pendant lamps. Background: a home kitchen. Entire body in frame. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Full body shot of TRIGGER seen from the front at eye level, standing next to a kitchen counter with one hand on the countertop
+    and holding a glass of water, friendly expression. [HAIR COLOR] hair in a claw clip, wearing a heather-grey sweatshirt,
+    black joggers and white socks. Warm pendant lamp light, home kitchen in the background.
+- id: '45'
+  title: Full body - right profile, formal
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: full
+  angle: profile
+  side: right
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: soft diffused studio light
+  light_side: front
+  environment: a dark studio backdrop
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, profile,
+    skin tone, body type, height, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if
+    it is clearly visible in the same place in several of the reference photos. Do not add marks that are faint, appear in
+    only one photo, or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Full body shot
+    in right profile, standing upright with both hands in trouser pockets, head turned slightly toward the camera, composed
+    serious expression. Hair in a sleek low ponytail. Wearing a tailored navy suit, white shirt and black dress shoes. Soft
+    diffused studio light from the front. Background: a plain dark charcoal studio backdrop. Entire body in frame. Only this
+    one person, no text, no watermark, no white face patches.
+  caption: >-
+    Full body shot of TRIGGER seen in right profile, standing upright with both hands in trouser pockets, head turned slightly
+    toward the camera, composed serious expression. [HAIR COLOR] hair in a sleek low ponytail, wearing a tailored navy suit,
+    white shirt and black dress shoes. Soft diffused studio light, dark charcoal backdrop.
+- id: '46'
+  title: Wide shot - beach, subject on right third
+  width: 1376
+  height: 768
+  aspect: '16:9'
+  crop: wide
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: walking
+  light: warm sunset backlight
+  light_side: back
+  environment: a beach at sunset
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Wide-angle landscape shot of
+    an empty beach at sunset, the person small in the frame on the right third, walking along the waterline toward the camera,
+    face turned toward the camera and clearly recognisable. Hair blowing in the wind. Wearing a white flowing linen beach
+    cover-up. Warm orange sunset backlight. Large expanse of sky and sea. Only this one person, no text, no watermark, no
+    white face patches.
+  caption: >-
+    Wide shot of TRIGGER walking along the waterline on an empty beach, positioned on the right third of the frame, facing
+    the camera. [HAIR COLOR] hair blowing in the wind, wearing a white linen beach cover-up. Warm sunset backlight, sea and
+    sky.
+- id: '47'
+  title: Wide shot - city plaza, subject lower left
+  width: 1248
+  height: 832
+  aspect: '3:2'
+  crop: wide
+  angle: front
+  camera: high
+  gaze: camera
+  posture: standing
+  light: soft overcast daylight
+  light_side: even
+  environment: a large city plaza
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Wide shot from a high vantage
+    point looking down onto a large stone city plaza, the person standing small in the lower left of the frame, looking up
+    toward the camera and waving. Hair worn down. Wearing a bright red coat and black boots. Soft overcast daylight. Background:
+    the plaza with a fountain and historic buildings. Only this one person, no text, no watermark, no white face patches.
+  caption: >-
+    Wide shot of TRIGGER seen from a high angle, standing in the lower left of a large stone plaza, looking up and waving.
+    [HAIR COLOR] hair worn down, wearing a bright red coat and black boots. Soft overcast daylight, plaza with a fountain
+    and historic buildings.
+- id: '48'
+  title: Wide shot - forest trail, centered
+  width: 832
+  height: 1248
+  aspect: '2:3'
+  crop: wide
+  angle: front
+  camera: eye_level
+  gaze: camera
+  posture: standing
+  light: soft light through morning fog
+  light_side: even
+  environment: a misty pine forest
+  prompt: >-
+    Using the attached reference photos, create a photorealistic photograph of the same person. They are the only person in
+    the references with a visible face; ignore anyone whose face is whited out. Preserve their exact facial features, skin
+    tone, body type, proportions and natural hair color. Reproduce a freckle, mole or other skin mark only if it is clearly
+    visible in the same place in several of the reference photos. Do not add marks that are faint, appear in only one photo,
+    or could be blur, noise or compression artifacts; render that skin as clear, natural skin. Vertical wide shot of a tall
+    misty pine forest, the person small in the center of a dirt trail in the middle distance, standing facing the camera with
+    hands holding backpack straps, calm expression. Hair in two braids. Wearing a forest-green rain jacket, black hiking pants
+    and brown hiking boots. Soft diffused light through morning fog. Only this one person, no text, no watermark, no white
+    face patches.
+  caption: >-
+    Wide shot of TRIGGER standing in the center of a forest trail, facing the camera and holding backpack straps, calm expression.
+    [HAIR COLOR] hair in two braids, wearing a forest-green rain jacket, black hiking pants and brown hiking boots. Soft diffused
+    light through morning fog, misty pine forest.

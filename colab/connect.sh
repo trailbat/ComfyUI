@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
-# Connects to ComfyUI on Colab through the relay that colab/ssh_tunnel.py forwards it to, and serves it at
-# http://localhost:8188 until Ctrl+C. Runs in Git Bash or any shell with OpenSSH:
-#   colab/connect.sh ubuntu@<relay ip> ~/.ssh/lightsail.pem
-# The key can be left out when ~/.ssh/config already has one for the host.
+# Connects to ports that colab/ssh_tunnel.py (or a similar reverse tunnel) forwards to the relay, and serves each at
+# http://localhost:<port> until Ctrl+C. Ports default to 8188 (ComfyUI). Runs in Git Bash or any shell with OpenSSH:
+#   colab/connect.sh ubuntu@<relay ip> ~/.ssh/lightsail.pem [port...]
+# The key can be left empty ("") when ~/.ssh/config already has one for the host.
 set -euo pipefail
 
-host=${1:?usage: connect.sh user@relay [key]}
+host=${1:?usage: connect.sh user@relay [key] [port...]}
 key=${2:-}
+ports=("${@:3}")
+[ ${#ports[@]} -eq 0 ] && ports=(8188)
 
-echo "ComfyUI at http://localhost:8188, Ctrl+C to disconnect"
-exec ssh -N ${key:+-i "$key"} -o ServerAliveInterval=30 -o ExitOnForwardFailure=yes \
-    -L 8188:127.0.0.1:8188 "$host"
+forwards=()
+for port in "${ports[@]}"; do
+    forwards+=(-L "$port:127.0.0.1:$port")
+    echo "http://localhost:$port"
+done
+
+echo "Ctrl+C to disconnect"
+exec ssh -N ${key:+-i "$key"} -o ServerAliveInterval=30 -o ExitOnForwardFailure=yes "${forwards[@]}" "$host"
