@@ -21,6 +21,7 @@ import tailscale
 
 CATALOG = os.path.join(install.COLAB_DIR, "models.yaml")
 WORKFLOWS_DIR = os.path.join(install.ROOT, "user", "default", "workflows")
+LORA_GROUPS = {"slider loras": "slider", "style loras": "style"}
 
 
 def secret(name):
@@ -46,6 +47,24 @@ def fetch_catalog(url):
     with open(CATALOG, "w", encoding="utf-8") as f:
         f.write(text)
     return catalog
+
+
+# "slider loras: Krea 2" in download_models stands for every slider LoRA of that model in the catalog, "style loras: Krea 2"
+# for every style LoRA.
+def expand_lora_groups(catalog, download_models):
+    names = []
+    for entry in download_models:
+        prefix, sep, model_type = entry.partition(":")
+        flag = LORA_GROUPS.get(prefix)
+        if sep and flag:
+            model_type = model_type.strip()
+            loras = [name for name, lora in catalog.items() if lora.get(flag) and lora.get("model") == model_type]
+            if not loras:
+                raise ValueError(f"No {flag} LoRAs for model {model_type!r} in the catalog")
+            names += loras
+        else:
+            names.append(entry)
+    return list(dict.fromkeys(names))
 
 
 # Workflows are urls, or paths relative to models_yaml, saved to the Workflows sidebar tab under their file name.
@@ -85,6 +104,7 @@ def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_
         drive.mount("/content/drive")
 
     catalog = fetch_catalog(models_yaml)
+    download_models = expand_lora_groups(catalog, download_models)
     missing = [name for name in download_models if name not in catalog]
     if missing:
         raise ValueError(f"Not in {models_yaml}: {', '.join(missing)}")

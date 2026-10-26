@@ -266,7 +266,9 @@ class MetaMuseImageEditApi(IO.ComfyNode):
     @classmethod
     async def execute(cls, model: dict):
         validate_string(model["prompt"], min_length=1)
-        reference_images = [image for key in model["images"] for image in model["images"][key]]
+        reference_images = [image for key in model["images"] if model["images"][key] is not None for image in model["images"][key]]
+        if not reference_images:
+            raise ValueError("At least one reference image is required.")
         if len(reference_images) > MAX_INPUT_IMAGES:
             raise ValueError(
                 f"A maximum of {MAX_INPUT_IMAGES} reference images is supported; got {len(reference_images)} "

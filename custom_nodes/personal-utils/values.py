@@ -33,10 +33,11 @@ class GetValue:
             }
         }
 
-    RETURN_TYPES = ("STRING", "INT", "FLOAT", "BOOLEAN")
-    RETURN_NAMES = ("string", "int", "float", "boolean")
+    RETURN_TYPES = ("STRING", "INT", "FLOAT", "BOOLEAN", ANY)
+    RETURN_NAMES = ("string", "int", "float", "boolean", "value")
     OUTPUT_TOOLTIPS = ("Lists and mappings come out as JSON.", "0 when the value isn't a number.",
-                       "0.0 when the value isn't a number.", "True for true, yes, on and non-zero numbers.")
+                       "0.0 when the value isn't a number.", "True for true, yes, on and non-zero numbers.",
+                       "The value as it is in the YAML, connects to any input such as a dropdown (e.g. aspect_ratio).")
     FUNCTION = "get"
     CATEGORY = "utils/personal"
     DESCRIPTION = "Reads one field as a string, int, float and boolean, connect whichever output you need."
@@ -47,4 +48,4 @@ class GetValue:
             value = default
         text = json.dumps(value) if isinstance(value, (dict, list)) else str(value)
         boolean = value if isinstance(value, bool) else text.strip().lower() in ("true", "yes", "on") or to_number(value, float) != 0
-        return (text, to_number(value, int), to_number(value, float), boolean)
+        return (text, to_number(value, int), to_number(value, float), boolean, value)

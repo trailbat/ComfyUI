@@ -5,7 +5,7 @@
 import torch
 
 import comfy.utils
-from comfy_execution.graph_utils import GraphBuilder, is_link
+from comfy_execution.graph_utils import ExecutionBlocker, GraphBuilder, is_link
 from server import PromptServer
 
 ANY = "*"
@@ -56,8 +56,8 @@ class ForEachBegin:
             remaining, results = items.remaining, items.results
         else:
             remaining, results = list(items), []
-        if not remaining:
-            raise ValueError("▶ For Each: the list is empty")
+        if not remaining:  # e.g. Pending Prompts with nothing left to generate
+            return (ExecutionBlocker(None),) * 4
         return (LoopState(unique_id[0], remaining, results), remaining[0], len(results), len(results) + len(remaining))
 
 
@@ -74,6 +74,8 @@ class ForEachEnd:
 
     RETURN_TYPES = (ANY,)
     RETURN_NAMES = ("batch",)
+    # Runs even when nothing uses the batch, e.g. when every run is saved inside the loop, since it drives the loop.
+    OUTPUT_NODE = True
     OUTPUT_TOOLTIPS = ("Images as one batch, resized to the first image's size when they differ. Other values as a list.",)
     FUNCTION = "end"
     CATEGORY = "utils/personal"
