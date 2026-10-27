@@ -1,0 +1,363 @@
+{
+  "last_node_id": 8,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [
+        -460,
+        -300
+      ],
+      "size": [
+        480,
+        640
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note"
+      },
+      "widgets_values": [
+        "Caption a folder of photos, 1 of 2: find the person\n\n1. Find People: type the folder with the photos and Run. It groups the faces by person, the first Preview Image shows one face per person with the number of photos they are in (red box: that person, gray: others in the same photo).\n2. Select Person: set person to the number of the one you want, 1 is the most frequent.\n3. Review People shows every photo with a number, the picked face in red and the other faces in gray with their numbers (counted from the left). Faces without a box: lower min_confidence of Find People and run again, pets and objects may get a box then. Where the wrong face was picked, add a line to corrections of Select Person: <photo number>: <face number>, or <photo number>: none when the person isn't in the photo. Run again to check.\n4. Every Run saves the result with Save People to output/people/<name>.json, the name is the photo folder's name unless you type one. The result isn't final until the review looks right.\n\nNext: lora-caption-2-caption.json, pick that file in its Load People (press R first to refresh the list)."
+      ]
+    },
+    {
+      "id": 2,
+      "type": "PersonalFindPeople",
+      "pos": [
+        -460,
+        400
+      ],
+      "size": [
+        440,
+        110
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "people",
+          "type": "PEOPLE",
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalFindPeople"
+      },
+      "widgets_values": [
+        "",
+        0.6
+      ]
+    },
+    {
+      "id": 3,
+      "type": "PreviewImage",
+      "pos": [
+        -460,
+        540
+      ],
+      "size": [
+        440,
+        420
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 4,
+      "type": "PersonalSelectPerson",
+      "pos": [
+        20,
+        400
+      ],
+      "size": [
+        420,
+        240
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "people",
+          "type": "PEOPLE",
+          "link": 1
+        },
+        {
+          "name": "person",
+          "type": "INT",
+          "link": null,
+          "widget": {
+            "name": "person"
+          }
+        },
+        {
+          "name": "corrections",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "corrections"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "people",
+          "type": "PEOPLE",
+          "links": [
+            3,
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalSelectPerson"
+      },
+      "widgets_values": [
+        1,
+        ""
+      ]
+    },
+    {
+      "id": 5,
+      "type": "PersonalSavePeople",
+      "pos": [
+        20,
+        700
+      ],
+      "size": [
+        420,
+        100
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "people",
+          "type": "PEOPLE",
+          "link": 4
+        },
+        {
+          "name": "name",
+          "type": "STRING",
+          "link": null,
+          "widget": {
+            "name": "name"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "file",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalSavePeople"
+      },
+      "widgets_values": [
+        ""
+      ]
+    },
+    {
+      "id": 6,
+      "type": "PreviewAny",
+      "pos": [
+        20,
+        860
+      ],
+      "size": [
+        420,
+        120
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 7,
+      "type": "PersonalReviewPeople",
+      "pos": [
+        500,
+        400
+      ],
+      "size": [
+        420,
+        60
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "people",
+          "type": "PEOPLE",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "review",
+          "type": "IMAGE",
+          "links": [
+            6
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalReviewPeople"
+      }
+    },
+    {
+      "id": 8,
+      "type": "PreviewImage",
+      "pos": [
+        500,
+        520
+      ],
+      "size": [
+        900,
+        760
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 6
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      0,
+      "PEOPLE"
+    ],
+    [
+      2,
+      2,
+      1,
+      3,
+      0,
+      "IMAGE"
+    ],
+    [
+      3,
+      4,
+      0,
+      7,
+      0,
+      "PEOPLE"
+    ],
+    [
+      4,
+      4,
+      0,
+      5,
+      0,
+      "PEOPLE"
+    ],
+    [
+      5,
+      5,
+      0,
+      6,
+      0,
+      "STRING"
+    ],
+    [
+      6,
+      7,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Find the person",
+      "bounding": [
+        -480,
+        320,
+        1900,
+        980
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        560,
+        200
+      ]
+    }
+  },
+  "version": 0.4
+}

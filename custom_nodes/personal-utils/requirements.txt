@@ -1,0 +1,4 @@
+insightface
+onnxruntime-gpu
+ultralytics
+opencv-python-headless

@@ -31,9 +31,9 @@ def read_lock():
         return dict(line.split() for line in f if line.strip())
 
 
-# Base requirements plus the requirements.txt of each custom node folder, build.py checks the same list resolves.
+# Base requirements plus the requirements.txt of each custom node folder and of personal-utils, build.py checks the same list resolves.
 def requirements(node_paths):
-    files = [os.path.join(ROOT, "requirements.txt"), os.path.join(ROOT, "manager_requirements.txt")]
+    files = [os.path.join(ROOT, "requirements.txt"), os.path.join(ROOT, "manager_requirements.txt"), os.path.join(CUSTOM_NODES, "personal-utils", "requirements.txt")]
     files += [os.path.join(path, "requirements.txt") for path in node_paths if os.path.isfile(os.path.join(path, "requirements.txt"))]
     return "".join(f"-r {pathlib.Path(file).as_posix()}\n" for file in files) + "aria2p\n"
 
