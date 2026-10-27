@@ -1,0 +1,1251 @@
+{
+  "id": "59f1c4ff-4c4f-40a7-96b2-ae8944448614",
+  "revision": 0,
+  "last_node_id": 20,
+  "last_link_id": 21,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [
+        -460,
+        -40
+      ],
+      "size": [
+        400,
+        470
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note"
+      },
+      "widgets_values": [
+        "LoRA reference loop\n\n1. Load Prompt List: click \"upload yaml\" and pick custom_nodes/personal-utils/lora_dataset_prompts.yaml.\n2. Reference Picker: click \"Upload photos\" and pick your reference photos, they go to input/<Reference Analyzer's folder>.\n3. Click \"Analyze\" on the Reference Picker. It runs only the Reference Analyzer, which stays muted so Run never analyzes again.\n4. Open \"Anchors\", click 3-5 photos that clearly show the subject alone, then Analyze again. The subject is found in every other photo by face, other people count against a photo.\n5. Go through the prompts and click photos to pick or unpick them, Muse uses the first 7 picks of each prompt. Hover a photo for its score breakdown, \"Weights\" changes how much each part counts.\n6. Run. Meta Muse Image Edit gets the prompt, its aspect ratio and the picked photos, and each result is saved to output/lora_dataset as <id>_0001.png. This is a paid API node (about $0.014 per image, 48 per run) and needs a Comfy account sign-in.\n7. Untick prompts in the picker's list to leave them out. Run only makes the ticked prompts with no image in output/lora_dataset yet (Pending Prompts).\n8. Open \"Results\" to approve or reject the images. Rejected ones move to output/lora_dataset/rejected and are made again on the next Run.\n\nWeb and image search are off on the Muse node so it can't pull in photos of other people, turn them on there if you want them.\n\nCaptions are in the YAML (\"caption\"), replace TRIGGER and [HAIR COLOR] before training."
+      ],
+      "widgets_values_named": {
+        "text": "LoRA reference loop\n\n1. Load Prompt List: click \"upload yaml\" and pick custom_nodes/personal-utils/lora_dataset_prompts.yaml.\n2. Reference Picker: click \"Upload photos\" and pick your reference photos, they go to input/<Reference Analyzer's folder>.\n3. Click \"Analyze\" on the Reference Picker. It runs only the Reference Analyzer, the loop doesn't start.\n4. Open \"Anchors\", click 3-5 photos that clearly show the subject alone, then Analyze again. The subject is found in every other photo by face, other people count against a photo.\n5. Go through the prompts and click photos to pick or unpick them. Hover a photo for its score breakdown, \"Weights\" changes how much each part counts.\n6. Run. Meta Muse Image Edit gets the prompt, its aspect ratio and the picked photos, and each result is saved to output/lora_dataset as <id>_0001.png. This is a paid API node (about $0.014 per image, 48 per run) and needs a Comfy account sign-in.\n\nWeb and image search are off on the Muse node so it can't pull in photos of other people, turn them on there if you want them.\n\nCaptions are in the YAML (\"caption\"), replace TRIGGER and [HAIR COLOR] before training."
+      },
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 2,
+      "type": "PersonalLoadPromptList",
+      "pos": [
+        -460,
+        480
+      ],
+      "size": [
+        400,
+        110
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "file",
+          "name": "file",
+          "type": "COMBO",
+          "widget": {
+            "name": "file"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "prompts",
+          "name": "prompts",
+          "type": "JSON_LIST",
+          "links": [
+            1,
+            2
+          ]
+        },
+        {
+          "localized_name": "count",
+          "name": "count",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalLoadPromptList"
+      },
+      "widgets_values": [
+        "lora_dataset_prompts.yaml",
+        null
+      ],
+      "widgets_values_named": {
+        "file": "lora_dataset_prompts.yaml",
+        "upload yaml": null
+      }
+    },
+    {
+      "id": 3,
+      "type": "PersonalReferenceAnalyzer",
+      "pos": [
+        -460,
+        640
+      ],
+      "size": [
+        400,
+        260
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 2,
+      "inputs": [
+        {
+          "localized_name": "prompts",
+          "name": "prompts",
+          "type": "JSON_LIST",
+          "link": 1
+        },
+        {
+          "localized_name": "clip_model",
+          "name": "clip_model",
+          "type": "COMBO",
+          "widget": {
+            "name": "clip_model"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "folder",
+          "name": "folder",
+          "type": "STRING",
+          "widget": {
+            "name": "folder"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "anchors",
+          "name": "anchors",
+          "type": "STRING",
+          "widget": {
+            "name": "anchors"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PersonalReferenceAnalyzer"
+      },
+      "widgets_values": [
+        "clip-vit-large-patch14.safetensors",
+        "lora_refs",
+        ""
+      ],
+      "widgets_values_named": {
+        "clip_model": "clip-vit-large-patch14.safetensors",
+        "folder": "lora_refs",
+        "anchors": ""
+      }
+    },
+    {
+      "id": 7,
+      "type": "PersonalForEachBegin",
+      "pos": [
+        20,
+        480
+      ],
+      "size": [
+        240,
+        110
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "items",
+          "name": "items",
+          "type": "*",
+          "link": 21
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "flow",
+          "name": "flow",
+          "type": "FOREACH_FLOW",
+          "links": [
+            9
+          ]
+        },
+        {
+          "localized_name": "item",
+          "name": "item",
+          "type": "*",
+          "links": [
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        {
+          "localized_name": "index",
+          "name": "index",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "localized_name": "count",
+          "name": "count",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalForEachBegin"
+      }
+    },
+    {
+      "id": 8,
+      "type": "PersonalGetValue",
+      "pos": [
+        320,
+        -40
+      ],
+      "size": [
+        240,
+        162
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "data",
+          "name": "data",
+          "type": "*",
+          "link": 3
+        },
+        {
+          "localized_name": "key",
+          "name": "key",
+          "type": "STRING",
+          "widget": {
+            "name": "key"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "default",
+          "name": "default",
+          "type": "STRING",
+          "widget": {
+            "name": "default"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "string",
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            8
+          ]
+        },
+        {
+          "localized_name": "int",
+          "name": "int",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "localized_name": "float",
+          "name": "float",
+          "type": "FLOAT",
+          "links": []
+        },
+        {
+          "localized_name": "boolean",
+          "name": "boolean",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "*",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalGetValue"
+      },
+      "widgets_values": [
+        "id",
+        ""
+      ],
+      "widgets_values_named": {
+        "key": "id",
+        "default": ""
+      }
+    },
+    {
+      "id": 9,
+      "type": "PersonalGetValue",
+      "pos": [
+        320,
+        110
+      ],
+      "size": [
+        240,
+        162
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "data",
+          "name": "data",
+          "type": "*",
+          "link": 4
+        },
+        {
+          "localized_name": "key",
+          "name": "key",
+          "type": "STRING",
+          "widget": {
+            "name": "key"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "default",
+          "name": "default",
+          "type": "STRING",
+          "widget": {
+            "name": "default"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "string",
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            12
+          ]
+        },
+        {
+          "localized_name": "int",
+          "name": "int",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "localized_name": "float",
+          "name": "float",
+          "type": "FLOAT",
+          "links": []
+        },
+        {
+          "localized_name": "boolean",
+          "name": "boolean",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "*",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalGetValue"
+      },
+      "widgets_values": [
+        "prompt",
+        ""
+      ],
+      "widgets_values_named": {
+        "key": "prompt",
+        "default": ""
+      }
+    },
+    {
+      "id": 10,
+      "type": "PersonalGetValue",
+      "pos": [
+        320,
+        260
+      ],
+      "size": [
+        240,
+        162
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "data",
+          "name": "data",
+          "type": "*",
+          "link": 5
+        },
+        {
+          "localized_name": "key",
+          "name": "key",
+          "type": "STRING",
+          "widget": {
+            "name": "key"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "default",
+          "name": "default",
+          "type": "STRING",
+          "widget": {
+            "name": "default"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "string",
+          "name": "string",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "localized_name": "int",
+          "name": "int",
+          "type": "INT",
+          "links": []
+        },
+        {
+          "localized_name": "float",
+          "name": "float",
+          "type": "FLOAT",
+          "links": []
+        },
+        {
+          "localized_name": "boolean",
+          "name": "boolean",
+          "type": "BOOLEAN",
+          "links": []
+        },
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "*",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalGetValue"
+      },
+      "widgets_values": [
+        "aspect",
+        ""
+      ],
+      "widgets_values_named": {
+        "key": "aspect",
+        "default": ""
+      }
+    },
+    {
+      "id": 12,
+      "type": "PersonalReferencePicker",
+      "pos": [
+        20,
+        640
+      ],
+      "size": [
+        1100,
+        760
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "item",
+          "name": "item",
+          "type": "*",
+          "link": 6
+        },
+        {
+          "localized_name": "selection",
+          "name": "selection",
+          "type": "STRING",
+          "widget": {
+            "name": "selection"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "image_1",
+          "name": "image_1",
+          "type": "IMAGE",
+          "links": [
+            13
+          ]
+        },
+        {
+          "localized_name": "image_2",
+          "name": "image_2",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        },
+        {
+          "localized_name": "image_3",
+          "name": "image_3",
+          "type": "IMAGE",
+          "links": [
+            15
+          ]
+        },
+        {
+          "localized_name": "image_4",
+          "name": "image_4",
+          "type": "IMAGE",
+          "links": [
+            16
+          ]
+        },
+        {
+          "localized_name": "image_5",
+          "name": "image_5",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "localized_name": "image_6",
+          "name": "image_6",
+          "type": "IMAGE",
+          "links": [
+            18
+          ]
+        },
+        {
+          "localized_name": "image_7",
+          "name": "image_7",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        },
+        {
+          "localized_name": "image_8",
+          "name": "image_8",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalReferencePicker"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "widgets_values_named": {
+        "selection": ""
+      }
+    },
+    {
+      "id": 17,
+      "type": "Image Save",
+      "pos": [
+        1620,
+        -40
+      ],
+      "size": [
+        360,
+        700
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "link": 20
+        },
+        {
+          "localized_name": "output_path",
+          "name": "output_path",
+          "type": "STRING",
+          "widget": {
+            "name": "output_path"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": 8
+        },
+        {
+          "localized_name": "filename_delimiter",
+          "name": "filename_delimiter",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_delimiter"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "filename_number_padding",
+          "name": "filename_number_padding",
+          "type": "INT",
+          "widget": {
+            "name": "filename_number_padding"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "filename_number_start",
+          "name": "filename_number_start",
+          "type": "COMBO",
+          "widget": {
+            "name": "filename_number_start"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "extension",
+          "name": "extension",
+          "type": "COMBO",
+          "widget": {
+            "name": "extension"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "dpi",
+          "name": "dpi",
+          "type": "INT",
+          "widget": {
+            "name": "dpi"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "quality",
+          "name": "quality",
+          "type": "INT",
+          "widget": {
+            "name": "quality"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "optimize_image",
+          "name": "optimize_image",
+          "type": "COMBO",
+          "widget": {
+            "name": "optimize_image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "lossless_webp",
+          "name": "lossless_webp",
+          "type": "COMBO",
+          "widget": {
+            "name": "lossless_webp"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "overwrite_mode",
+          "name": "overwrite_mode",
+          "type": "COMBO",
+          "widget": {
+            "name": "overwrite_mode"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "show_history",
+          "name": "show_history",
+          "type": "COMBO",
+          "widget": {
+            "name": "show_history"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "show_history_by_prefix",
+          "name": "show_history_by_prefix",
+          "type": "COMBO",
+          "widget": {
+            "name": "show_history_by_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "embed_workflow",
+          "name": "embed_workflow",
+          "type": "COMBO",
+          "widget": {
+            "name": "embed_workflow"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "show_previews",
+          "name": "show_previews",
+          "type": "COMBO",
+          "widget": {
+            "name": "show_previews"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "localized_name": "files",
+          "name": "files",
+          "type": "STRING",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "Image Save"
+      },
+      "widgets_values": [
+        "lora_dataset",
+        "ComfyUI",
+        "_",
+        4,
+        "false",
+        "png",
+        300,
+        100,
+        "true",
+        "false",
+        "false",
+        "false",
+        "true",
+        "true",
+        "true"
+      ],
+      "widgets_values_named": {
+        "output_path": "lora_dataset",
+        "filename_prefix": "ComfyUI",
+        "filename_delimiter": "_",
+        "filename_number_padding": 4,
+        "filename_number_start": "false",
+        "extension": "png",
+        "dpi": 300,
+        "quality": 100,
+        "optimize_image": "true",
+        "lossless_webp": "false",
+        "overwrite_mode": "false",
+        "show_history": "false",
+        "show_history_by_prefix": "true",
+        "embed_workflow": "true",
+        "show_previews": "true"
+      }
+    },
+    {
+      "id": 18,
+      "type": "PersonalForEachEnd",
+      "pos": [
+        2040,
+        -40
+      ],
+      "size": [
+        240,
+        80
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "flow",
+          "name": "flow",
+          "type": "FOREACH_FLOW",
+          "link": 9
+        },
+        {
+          "localized_name": "value",
+          "name": "value",
+          "type": "*",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "batch",
+          "name": "batch",
+          "type": "*",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalForEachEnd"
+      }
+    },
+    {
+      "id": 19,
+      "type": "MetaMuseImageEditApi",
+      "pos": [
+        1180,
+        -40
+      ],
+      "size": [
+        400,
+        420
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image_1",
+          "name": "model.images.image_1",
+          "type": "IMAGE",
+          "link": 13
+        },
+        {
+          "localized_name": "image_2",
+          "name": "model.images.image_2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 14
+        },
+        {
+          "localized_name": "image_3",
+          "name": "model.images.image_3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 15
+        },
+        {
+          "localized_name": "image_4",
+          "name": "model.images.image_4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 16
+        },
+        {
+          "localized_name": "image_5",
+          "name": "model.images.image_5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "localized_name": "image_6",
+          "name": "model.images.image_6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 18
+        },
+        {
+          "localized_name": "image_7",
+          "name": "model.images.image_7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 19
+        },
+        {
+          "localized_name": "image_8",
+          "name": "model.images.image_8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "model.prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "model.prompt"
+          },
+          "link": 12
+        },
+        {
+          "localized_name": "aspect_ratio",
+          "name": "model.aspect_ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "model.aspect_ratio"
+          },
+          "link": 11
+        },
+        {
+          "localized_name": "reasoning_strength",
+          "name": "model.reasoning_strength",
+          "type": "COMBO",
+          "widget": {
+            "name": "model.reasoning_strength"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "enable_web_search",
+          "name": "model.enable_web_search",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "model.enable_web_search"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "enable_image_search",
+          "name": "model.enable_image_search",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "model.enable_image_search"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "enable_shell",
+          "name": "model.enable_shell",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "model.enable_shell"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "model.seed",
+          "type": "INT",
+          "widget": {
+            "name": "model.seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "model",
+          "name": "model",
+          "type": "COMFY_DYNAMICCOMBO_V3",
+          "widget": {
+            "name": "model"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MetaMuseImageEditApi"
+      },
+      "widgets_values": [
+        "muse-image-1.0",
+        "",
+        "auto",
+        "high",
+        false,
+        false,
+        false,
+        42,
+        "randomize"
+      ],
+      "widgets_values_named": {
+        "model": "muse-image-1.0",
+        "model.prompt": "",
+        "model.aspect_ratio": "auto",
+        "model.reasoning_strength": "high",
+        "model.enable_web_search": true,
+        "model.enable_image_search": true,
+        "model.enable_shell": true,
+        "model.seed": 42,
+        "control_after_generate": "randomize"
+      },
+      "color": "#432",
+      "bgcolor": "#653",
+      "title": "Meta Muse Image Edit (first 7 picks)"
+    },
+    {
+      "id": 20,
+      "type": "PersonalPendingPrompts",
+      "pos": [
+        -460,
+        940
+      ],
+      "size": [
+        400,
+        170
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompts",
+          "type": "JSON_LIST",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "prompts",
+          "type": "JSON_LIST",
+          "links": [
+            21
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PersonalPendingPrompts"
+      },
+      "widgets_values": [
+        "lora_dataset",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "JSON_LIST"
+    ],
+    [
+      2,
+      2,
+      0,
+      20,
+      0,
+      "JSON_LIST"
+    ],
+    [
+      3,
+      7,
+      1,
+      8,
+      0,
+      "*"
+    ],
+    [
+      4,
+      7,
+      1,
+      9,
+      0,
+      "*"
+    ],
+    [
+      5,
+      7,
+      1,
+      10,
+      0,
+      "*"
+    ],
+    [
+      6,
+      7,
+      1,
+      12,
+      0,
+      "*"
+    ],
+    [
+      9,
+      7,
+      0,
+      18,
+      0,
+      "FOREACH_FLOW"
+    ],
+    [
+      10,
+      17,
+      1,
+      18,
+      1,
+      "STRING"
+    ],
+    [
+      8,
+      8,
+      0,
+      17,
+      2,
+      "STRING"
+    ],
+    [
+      13,
+      12,
+      0,
+      19,
+      0,
+      "IMAGE"
+    ],
+    [
+      14,
+      12,
+      1,
+      19,
+      1,
+      "IMAGE"
+    ],
+    [
+      15,
+      12,
+      2,
+      19,
+      2,
+      "IMAGE"
+    ],
+    [
+      16,
+      12,
+      3,
+      19,
+      3,
+      "IMAGE"
+    ],
+    [
+      17,
+      12,
+      4,
+      19,
+      4,
+      "IMAGE"
+    ],
+    [
+      18,
+      12,
+      5,
+      19,
+      5,
+      "IMAGE"
+    ],
+    [
+      19,
+      12,
+      6,
+      19,
+      6,
+      "IMAGE"
+    ],
+    [
+      12,
+      9,
+      0,
+      19,
+      8,
+      "STRING"
+    ],
+    [
+      11,
+      10,
+      4,
+      19,
+      9,
+      "COMBO"
+    ],
+    [
+      20,
+      19,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      20,
+      0,
+      7,
+      0,
+      "JSON_LIST"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Prompts and reference analysis",
+      "bounding": [
+        -480,
+        400,
+        440,
+        520
+      ],
+      "color": "#3f789e",
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Loop: runs once per prompt",
+      "bounding": [
+        0,
+        -120,
+        2300,
+        1540
+      ],
+      "color": "#8A8",
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        560,
+        200
+      ]
+    }
+  },
+  "version": 0.4
+}
