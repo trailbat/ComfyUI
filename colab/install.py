@@ -14,6 +14,7 @@ import subprocess
 import sys
 import urllib.request
 import zipfile
+from urllib.parse import urlparse
 
 COLAB_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(COLAB_DIR)
@@ -39,6 +40,31 @@ def requirements(node_paths):
 
 
 def fetch_node(node_id, version=None):
+    # Git repository installation
+    if node_id.startswith(("https://", "http://", "git@")):
+        print(f"+ clone {node_id}", flush=True)
+
+        # Extract repository name for the custom_nodes directory
+        repo_url = node_id.removesuffix(".git")
+
+        if node_id.startswith("git@"):
+            repo_name = node_id.rsplit(":", 1)[-1].split("/")[-1]
+        else:
+            repo_name = urlparse(repo_url).path.rstrip("/").split("/")[-1]
+
+        if not repo_name:
+            raise ValueError(f"Unable to determine repository name: {node_id}")
+
+        path = os.path.join(CUSTOM_NODES, repo_name)
+        shutil.rmtree(path, ignore_errors=True)
+        subprocess.run(
+            ["git", "clone", node_id, path],
+            check=True,
+        )
+
+        return path
+
+    # ComfyUI Registry installation
     print(f"+ download {node_id}@{version or 'latest'}", flush=True)
     api = f"https://api.comfy.org/nodes/{node_id}/versions/{version}" if version else f"https://api.comfy.org/nodes/{node_id}/install"
     with urllib.request.urlopen(api) as r:
