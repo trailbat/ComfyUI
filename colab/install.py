@@ -33,10 +33,10 @@ def read_lock():
 
 
 # Base requirements plus the requirements.txt of each custom node folder and of personal-utils, build.py checks the same list resolves.
-def requirements(node_paths):
+def requirements(node_paths, extra_packages=()):
     files = [os.path.join(ROOT, "requirements.txt"), os.path.join(ROOT, "manager_requirements.txt"), os.path.join(CUSTOM_NODES, "personal-utils", "requirements.txt")]
     files += [os.path.join(path, "requirements.txt") for path in node_paths if os.path.isfile(os.path.join(path, "requirements.txt"))]
-    return "".join(f"-r {pathlib.Path(file).as_posix()}\n" for file in files) + "aria2p\n"
+    return "".join(f"-r {pathlib.Path(file).as_posix()}\n" for file in files) + "aria2p\n" + "".join(f"{package}\n" for package in extra_packages)
 
 
 def fetch_node(node_id, version=None):
@@ -89,7 +89,8 @@ def install_aria2():
 
 
 # nodes are registry ids: "*" for every node in the lock, "id@1.2.3" for a version, otherwise the locked or latest version.
-def install(nodes):
+# extra_packages are pip requirements for dependencies a node leaves out, e.g. "diskcache" for ComfyUI_LC_Vision_nodes.
+def install(nodes, extra_packages=()):
     lock = read_lock()
     versions = {}
     for node in nodes:
@@ -101,7 +102,7 @@ def install(nodes):
     paths = [fetch_node(node_id, version) for node_id, version in versions.items()]
 
     # Colab ships a CUDA build of torch, the unpinned torch requirement keeps it.
-    run("uv", "pip", "install", "--system", "-r", "-", input=requirements(paths))
+    run("uv", "pip", "install", "--system", "-r", "-", input=requirements(paths, extra_packages))
 
     for path in paths:
         if os.path.isfile(os.path.join(path, "install.py")):
