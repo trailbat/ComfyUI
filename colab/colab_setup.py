@@ -94,7 +94,7 @@ def dir_copies(models_dir, copy_dirs):
 
 
 def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_drive, ssh_tunnel_enabled=False, workflows=(),
-          copy_dirs=None):
+          copy_dirs=None, extra_packages=()):
     # Colab secrets can't be read from the ComfyUI process, so pass them through the environment.
     for name in ["CIVITAI_API_KEY", "HUG_TOKEN", "TS_AUTHKEY", "TUNNEL_HOST", "TUNNEL_KEY"]:
         os.environ[name] = secret(name)
@@ -128,7 +128,7 @@ def setup(custom_nodes, models_yaml, download_models, tailscale_enabled, google_
         else:
             downloader.download(model["folder"], model["url"], rename=model["filename"])
     # aria2c runs as its own process, so the downloads continue in the background while setup and ComfyUI run.
-    install.install(custom_nodes)
+    install.install(custom_nodes, extra_packages)
 
     for source, path in copies:
         print(f"Copying {source}")
